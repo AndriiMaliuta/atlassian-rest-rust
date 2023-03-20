@@ -10,7 +10,6 @@ pub mod page_service {
             .header("Accept", "application/json")
             .send().await.unwrap();
         let body = resp.text().await.unwrap();
-        println!("{:?}", body); // todo - debug
         return serde_json::from_str(body.as_str()).unwrap();
     }
 

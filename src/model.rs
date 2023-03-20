@@ -4,17 +4,16 @@ pub mod models {
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
-    pub struct Extentions {
-        #[serde(skip_serializing_if = "String::is_empty")]
-        position: i32,
+    pub struct Extentions<T> {
+        #[serde(skip_serializing_if = "Option::is_none")]
+        position: Option<T>,
     }
 
-// #[derive(Serialize_repr, Deserialize_repr, PartialEq, Debug)]
-// #[repr(u8)]
-// enum PositionEnum {
-//     Str = 2,
-//     Numm = 3,
-// }
+    // impl Extentions {
+    //     pub fn is_empty(option: Option<Extentions>) -> bool {
+    //         if option == None { true} else { false }
+    //     }
+    // }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
@@ -25,12 +24,16 @@ pub mod models {
         Type: String,
         status: String,
         title: String,
-        extensions: Extentions,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        extensions: Option<Extentions<String>>,
         #[serde(rename(deserialize = "_expandable"))]
         _expandable: Expandable,
+        version: Version,
+        #[serde(rename(deserialize = "history"))]
+        history: Option<CntHistory>,
         _links: ContentLinks,
     }
-
+    
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
     pub struct Expandable {
@@ -39,12 +42,9 @@ pub mod models {
         operations: String,
         children: String,
         restrictions: String,
-        history: String,
         ancestors: String,
         body: String,
-        version: String,
         descendants: String,
-        space: String,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -116,7 +116,6 @@ pub mod models {
         pub(crate) key: String,
     }
 
-
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct Ancestor {
         pub(crate) id: i32,
@@ -134,7 +133,7 @@ pub mod models {
         pub space: CntSpace,
         pub history: CntHistory,
         pub version: Version,
-        pub extensions: Extentions,
+        pub extensions: Extentions<String>,
         #[serde(rename = "_links")]
         #[serde(skip)]
         pub links: Links,
@@ -160,10 +159,12 @@ pub mod models {
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-    // #[serde(rename_all = "camelCase")]
+    #[serde(rename_all = "camelCase")]
     pub struct CntHistory {
         pub latest: bool,
+        #[serde(rename = "createdBy")]
         pub created_by: CreatedBy,
+        #[serde(rename = "createdDate")]
         pub created_date: String,
         #[serde(rename = "_links")]
         #[serde(skip)]
