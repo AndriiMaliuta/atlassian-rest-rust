@@ -1,5 +1,6 @@
 mod pages;
 mod helpers;
+mod models;
 
 use std::fmt::format;
 use std::future::Future;
@@ -7,7 +8,8 @@ use std::iter::Map;
 use reqwest::{Body, Error};
 use serde_json::{json, Value};
 use tokio::time::Instant;
-use crate::pages::page_service::{Ancestor, create_page, CreatePage, CreatePageSpace, PageBody, Storage};
+use crate::models::models::{Ancestor, create_page, CreatePage, CreatePageSpace, PageBody, Storage};
+use crate::pages::page_service::create_page;
 
 
 #[tokio::main]
@@ -15,6 +17,7 @@ async fn main() -> Result<(), Error> {
     let mut start = Instant::now();
     println!("{}", "[ *** ] Starting");
 
+    // data
     let token = base64::encode(b"admin:admin");
     let conf_url = "http://localhost:8110";
 
