@@ -73,8 +73,24 @@ pub mod models {
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
+    pub struct ContentArrPage {
+        id: String,
+        #[serde(rename(serialize = "type"))]
+        #[serde(rename(deserialize = "type"))]
+        Type: String,
+        status: String,
+        title: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        extensions: Option<Extentions<String>>,
+        #[serde(rename(deserialize = "_expandable"))]
+        _expandable: Expandable,
+        _links: ContentLinks,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[allow(non_snake_case)]
     pub struct ContentResponse {
-        results: Vec<Content>,
+        results: Vec<ContentArrPage>,
         start: i8,
         limit: i8,
         size: i8,
@@ -119,27 +135,6 @@ pub mod models {
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct Ancestor {
         pub(crate) id: i32,
-    }
-
-    // One content page
-    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-    #[serde(rename_all = "camelCase")]
-    pub struct CntPage {
-        pub id: String,
-        #[serde(rename = "type")]
-        pub type_field: String,
-        pub status: String,
-        pub title: String,
-        pub space: CntSpace,
-        pub history: CntHistory,
-        pub version: Version,
-        pub extensions: Extentions<String>,
-        #[serde(rename = "_links")]
-        #[serde(skip)]
-        pub links: Links,
-        #[serde(skip)]
-        // #[serde(rename = "_expandable")]
-        pub expandable: Expandable,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

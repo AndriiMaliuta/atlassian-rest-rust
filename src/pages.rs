@@ -1,9 +1,20 @@
 pub mod page_service {
     use reqwest::Response;
-    use crate::model::models::{Content, CreatePage};
+    use crate::model::models::{Content, CreatePage, ContentResponse};
 
     pub async fn get_page(url: &str, token: String, id: String) -> Content {
         let request_url = format!("{url}/rest/api/content/{id}");
+        let client = reqwest::Client::new();
+        let resp: Response = client.get(&request_url)
+            .header("Authorization", format!("Basic {token}"))
+            .header("Accept", "application/json")
+            .send().await.unwrap();
+        let body = resp.text().await.unwrap();
+        return serde_json::from_str(body.as_str()).unwrap();
+    }
+
+    pub async fn get_children(url: &str, token: String, id: String) -> ContentResponse {
+        let request_url = format!("{url}/rest/api/content/{id}/child/page");
         let client = reqwest::Client::new();
         let resp: Response = client.get(&request_url)
             .header("Authorization", format!("Basic {token}"))
