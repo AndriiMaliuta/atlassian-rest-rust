@@ -1,6 +1,7 @@
 mod pages;
 mod helpers;
-mod models;
+mod model;
+mod spaces;
 
 use std::fmt::format;
 use std::future::Future;
@@ -8,7 +9,7 @@ use std::iter::Map;
 use reqwest::{Body, Error};
 use serde_json::{json, Value};
 use tokio::time::Instant;
-use crate::models::models::{Ancestor, CreatePage, CreatePageSpace, PageBody, Storage};
+use crate::model::models::{Ancestor, CreatePage, CreatePageSpace, PageBody, Storage};
 use crate::pages::page_service::{create_page, get_page};
 
 

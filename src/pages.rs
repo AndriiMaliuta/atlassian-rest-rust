@@ -1,6 +1,6 @@
 pub mod page_service {
     use reqwest::Response;
-    use crate::models::models::{Content, CreatePage};
+    use crate::model::models::{Content, CreatePage};
 
     pub async fn get_page(url: &str, token: String, id: String) -> Content {
         let request_url = format!("{url}/rest/api/content/{id}");
@@ -26,6 +26,16 @@ pub mod page_service {
         let created: String = res.text().await.unwrap();
         return created;
     }
+
+    // todo
+    pub async fn copy_page(conf_url: &str, token: &str, page: CreatePage) -> String {
+        return String::from("");
+    }
+    // todo
+    pub async fn move_page(conf_url: &str, token: &str, page: CreatePage) -> String {
+        return String::from("");
+    }
+
 
 
 

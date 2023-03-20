@@ -5,7 +5,7 @@ pub mod models {
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
     pub struct Extentions {
-        // #[serde(skip_serializing_if = "String::is_empty")]
+        #[serde(skip_serializing_if = "String::is_empty")]
         position: i32,
     }
 
@@ -160,7 +160,7 @@ pub mod models {
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-    #[serde(rename_all = "camelCase")]
+    // #[serde(rename_all = "camelCase")]
     pub struct CntHistory {
         pub latest: bool,
         pub created_by: CreatedBy,
