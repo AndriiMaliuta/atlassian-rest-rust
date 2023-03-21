@@ -1,4 +1,4 @@
-mod space;
+pub(crate) mod space;
 
 pub mod models {
     use serde_json::{json, Value};
@@ -10,12 +10,6 @@ pub mod models {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub position: Option<T>,
     }
-
-    // impl Extentions {
-    //     pub fn is_empty(option: Option<Extentions>) -> bool {
-    //         if option == None { true} else { false }
-    //     }
-    // }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]

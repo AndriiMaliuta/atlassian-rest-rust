@@ -29,6 +29,7 @@ async fn main() -> Result<(), Error> {
 
     // get space
     let space = get_space(conf_url, token, "dev16".to_string()).await;
+    println!("{:?}", space);
 
     // CREATE PAGE
     // let space_key = "dev16";
