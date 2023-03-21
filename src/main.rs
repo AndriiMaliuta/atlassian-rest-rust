@@ -11,7 +11,7 @@ use serde_json::{json, Value};
 use tokio::time::Instant;
 use crate::model::models::{Ancestor, CreatePage, CreatePageSpace, PageBody, Storage};
 use crate::pages::page_service::{create_page, get_children, get_descendants, get_page};
-use crate::spaces::spaces::get_space;
+use crate::spaces::spaces::{get_space, get_spaces};
 
 
 #[tokio::main]
@@ -28,8 +28,12 @@ async fn main() -> Result<(), Error> {
     // pages.results.iter().for_each(|p| println!("{:?}", p.title));
 
     // get space
-    let space = get_space(conf_url, token, "dev16".to_string()).await;
-    println!("{:?}", space);
+    // let space = get_space(conf_url, token, "dev16".to_string()).await;
+    // println!("{:?}", space);
+
+    // get spaces
+    let spaces = get_spaces(conf_url, token).await;
+    println!("{:?}", spaces);
 
     // CREATE PAGE
     // let space_key = "dev16";
