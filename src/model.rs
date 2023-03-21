@@ -1,3 +1,5 @@
+mod space;
+
 pub mod models {
     use serde_json::{json, Value};
     use serde::{Deserialize, Serialize};
@@ -6,7 +8,7 @@ pub mod models {
     #[allow(non_snake_case)]
     pub struct Extentions<T> {
         #[serde(skip_serializing_if = "Option::is_none")]
-        position: Option<T>,
+        pub position: Option<T>,
     }
 
     // impl Extentions {
@@ -37,14 +39,14 @@ pub mod models {
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
     pub struct Expandable {
-        container: String,
-        metadata: String,
-        operations: String,
-        children: String,
-        restrictions: String,
-        ancestors: String,
-        body: String,
-        descendants: String,
+        pub container: String,
+        pub metadata: String,
+        pub operations: String,
+        pub children: String,
+        pub restrictions: String,
+        pub ancestors: String,
+        pub body: String,
+        pub descendants: String,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -52,10 +54,10 @@ pub mod models {
     pub struct ContentLinks {
         #[serde(rename(serialize = "self"))]
         #[serde(rename(deserialize = "self"))]
-        sself: String,
-        webui: String,
-        edit: String,
-        tinyui: String,
+        pub sself: String,
+        pub webui: String,
+        pub edit: String,
+        pub tinyui: String,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -63,46 +65,54 @@ pub mod models {
     pub struct Links {
         #[serde(rename(serialize = "self"))]
         #[serde(rename(deserialize = "self"))]
-        sself: String,
+        #[serde(skip_serializing_if = "String::is_empty")]
+        pub sself: String,
         #[serde(skip_serializing_if = "String::is_empty")]
         // #[serde(skip_deserializing_if = "String::is_empty")]
-        next: String,
-        base: String,
-        context: String,
+        pub next: String,
+        pub base: String,
+        pub context: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[allow(non_snake_case)]
+    pub struct SearchResultsLinks {
+        pub base: String,
+        pub context: String,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
     pub struct ContentArrPage {
-        id: String,
+        pub id: String,
         #[serde(rename(serialize = "type"))]
         #[serde(rename(deserialize = "type"))]
-        Type: String,
-        status: String,
-        title: String,
+        pub Type: String,
+        pub status: String,
+        pub title: String,
         #[serde(skip_serializing_if = "Option::is_none")]
-        extensions: Option<Extentions<String>>,
+        pub extensions: Option<Extentions<String>>,
         #[serde(rename(deserialize = "_expandable"))]
-        _expandable: Expandable,
-        _links: ContentLinks,
+        pub _expandable: Expandable,
+        pub _links: ContentLinks,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
     pub struct ContentResponse {
-        results: Vec<ContentArrPage>,
-        start: i8,
-        limit: i8,
-        size: i8,
+        pub results: Vec<ContentArrPage>,
+        pub start: i8,
+        pub limit: i8,
+        pub size: i8,
         // #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(skip)]
-        _links: Links,
+        pub _links: Links,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct User {
-        login: String,
-        id: u32,
+        pub login: String,
+        pub id: u32,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -226,5 +236,20 @@ pub mod models {
         pub ancestors: String,
         pub body: String,
         pub descendants: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct SearchResults {
+        pub results: Vec<ContentArrPage>,
+        pub start: i8,
+        pub limit: i8,
+        pub size: i8,
+        #[serde(rename = "totalSize")]
+        pub total_size: i8,
+        #[serde(rename = "cqlQuery")]
+        pub cql_query: String,
+        #[serde(skip)]
+        pub _links: Links,
     }
 }

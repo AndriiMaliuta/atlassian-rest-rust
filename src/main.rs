@@ -10,7 +10,8 @@ use reqwest::{Body, Error};
 use serde_json::{json, Value};
 use tokio::time::Instant;
 use crate::model::models::{Ancestor, CreatePage, CreatePageSpace, PageBody, Storage};
-use crate::pages::page_service::{create_page, get_children, get_page};
+use crate::pages::page_service::{create_page, get_children, get_descendants, get_page};
+use crate::spaces::spaces::get_space;
 
 
 #[tokio::main]
@@ -23,9 +24,11 @@ async fn main() -> Result<(), Error> {
     let conf_url = "http://localhost:8110";
 
     // get page
-    let page = get_children(conf_url, token, "1213317".to_string()).await;
-    println!("{:?}", page);
+    // let pages = get_descendants(conf_url, token, "1213317".to_string()).await;
+    // pages.results.iter().for_each(|p| println!("{:?}", p.title));
 
+    // get space
+    let space = get_space(conf_url, token, "dev16".to_string()).await;
 
     // CREATE PAGE
     // let space_key = "dev16";
