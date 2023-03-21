@@ -33,7 +33,7 @@ async fn main() -> Result<(), Error> {
 
     // get spaces
     let spaces = get_spaces(conf_url, token).await;
-    println!("{:?}", spaces);
+    println!("{:?}", spaces.len());
 
     // CREATE PAGE
     // let space_key = "dev16";
