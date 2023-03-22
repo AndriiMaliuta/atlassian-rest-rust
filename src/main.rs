@@ -2,6 +2,7 @@ mod pages;
 mod helpers;
 mod model;
 mod spaces;
+mod labels;
 
 use std::fmt::format;
 use std::future::Future;
@@ -22,7 +23,6 @@ async fn main() -> Result<(), Error> {
     // data
     let token = base64::encode(b"admin:admin");
     let conf_url = "http://localhost:8110";
-
 
     // =============== get page
     // let pages = get_descendants(conf_url, token, "1213317".to_string()).await;
