@@ -20,8 +20,9 @@ async fn main() -> Result<(), Error> {
     println!("{}", "[ *** ] Starting");
 
     // data
-    let token = base64::engine::encode(b"admin:admin");
+    let token = base64::encode(b"admin:admin");
     let conf_url = "http://localhost:8110";
+
 
     // =============== get page
     // let pages = get_descendants(conf_url, token, "1213317".to_string()).await;
@@ -33,14 +34,14 @@ async fn main() -> Result<(), Error> {
 
     // =============== get spaces
     let mut space_service = SpaceService { spaces: vec![] };
-    let vec1 = space_service.get_spaces(conf_url, token).await;
+    let vec1 = space_service.get_spaces(&conf_url, &token).await;
     println!("{:?}", vec1);
 
-    // =============== CREATE PAGE
-    // let space_key = "dev16";
-    // let parent = 1213317;
+    // =============== CREATE PAGEs
+    // let space_key = "dev3";
+    // let parent = 1212664;
     //
-    // for a in 40..42 {
+    // for a in 1..20 {
     //     let title = format!("Rust page {a}");
     //
     //     let req = CreatePage {

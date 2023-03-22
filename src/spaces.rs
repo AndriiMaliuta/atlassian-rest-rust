@@ -9,7 +9,7 @@ pub mod spaces {
     }
 
     impl SpaceService {
-        pub async fn get_spaces(&self, url: &str, token: String) -> Vec<SpaceResult> {
+        pub async fn get_spaces(&self, url: &str, token: &String) -> Vec<SpaceResult> {
             let request_url = format!("{url}/rest/api/space/");
             let client = reqwest::Client::new();
             let resp: Response = client.get(&request_url)

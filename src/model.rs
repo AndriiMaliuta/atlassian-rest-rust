@@ -1,8 +1,10 @@
 pub(crate) mod space;
 
 pub mod models {
+    use reqwest::Body;
     use serde_json::{json, Value};
     use serde::{Deserialize, Serialize};
+    use crate::model::space::space::Space;
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
@@ -14,20 +16,39 @@ pub mod models {
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[allow(non_snake_case)]
     pub struct Content {
-        id: String,
+        pub id: String,
         #[serde(rename(serialize = "type"))]
         #[serde(rename(deserialize = "type"))]
-        Type: String,
-        status: String,
-        title: String,
+        pub Type: String,
+        pub status: String,
+        pub title: String,
+        pub body: PageBody,
         #[serde(skip_serializing_if = "Option::is_none")]
-        extensions: Option<Extentions<String>>,
+        pub extensions: Option<Extentions<String>>,
         #[serde(rename(deserialize = "_expandable"))]
-        _expandable: Expandable,
-        version: Version,
+        pub _expandable: Expandable,
+        pub version: Version,
+        pub space: Space,
         #[serde(rename(deserialize = "history"))]
-        history: Option<CntHistory>,
-        _links: ContentLinks,
+        pub history: Option<CntHistory>,
+        pub _links: ContentLinks,
+        pub ancetors: Vec<CntAncestor>,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[allow(non_snake_case)]
+    pub struct CntAncestor {
+        pub id: String,
+        #[serde(rename(serialize = "type"))]
+        #[serde(rename(deserialize = "type"))]
+        pub Type: String,
+        pub status: String,
+        pub title: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub extensions: Option<Extentions<String>>,
+        #[serde(rename(deserialize = "_expandable"))]
+        pub _expandable: Expandable,
+        pub _links: ContentLinks,
     }
     
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
