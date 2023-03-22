@@ -6,11 +6,10 @@ pub mod spaces {
 
     pub struct SpaceService {
         pub spaces: Vec<SpaceResult>
-
     }
 
     impl SpaceService {
-        pub async fn get_spaces(url: &str, token: String) -> Vec<SpaceResult> {
+        pub async fn get_spaces(&self, url: &str, token: String) -> Vec<SpaceResult> {
             let request_url = format!("{url}/rest/api/space/");
             let client = reqwest::Client::new();
             let resp: Response = client.get(&request_url)
@@ -20,9 +19,9 @@ pub mod spaces {
             let body = resp.text().await.unwrap();
 
             let spaces_init: Spaces = serde_json::from_str(body.as_str()).unwrap();
-            spaces_init.results.iter().for_each(|s| spaces.push(s));
+            // spaces_init.results.iter().for_each(|s| self.spaces.push(s));
 
-            return spaces;
+            return spaces_init.results;
         }
 
         pub async fn get_space(url: &str, token: String, key: String) -> Space {

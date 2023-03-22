@@ -11,7 +11,7 @@ use serde_json::{json, Value};
 use tokio::time::Instant;
 use crate::model::models::{Ancestor, CreatePage, CreatePageSpace, PageBody, Storage};
 use crate::pages::page_service::{create_page, get_children, get_descendants, get_page};
-use crate::spaces::spaces::{get_space, get_spaces};
+use crate::spaces::spaces::{SpaceService};
 
 
 #[tokio::main]
@@ -20,22 +20,23 @@ async fn main() -> Result<(), Error> {
     println!("{}", "[ *** ] Starting");
 
     // data
-    let token = base64::encode(b"admin:admin");
+    let token = base64::engine::encode(b"admin:admin");
     let conf_url = "http://localhost:8110";
 
-    // get page
+    // =============== get page
     // let pages = get_descendants(conf_url, token, "1213317".to_string()).await;
     // pages.results.iter().for_each(|p| println!("{:?}", p.title));
 
-    // get space
+    // =============== get space
     // let space = get_space(conf_url, token, "dev16".to_string()).await;
     // println!("{:?}", space);
 
-    // get spaces
-    let spaces = get_spaces(conf_url, token).await;
-    println!("{:?}", spaces.len());
+    // =============== get spaces
+    let mut space_service = SpaceService { spaces: vec![] };
+    let vec1 = space_service.get_spaces(conf_url, token).await;
+    println!("{:?}", vec1);
 
-    // CREATE PAGE
+    // =============== CREATE PAGE
     // let space_key = "dev16";
     // let parent = 1213317;
     //
