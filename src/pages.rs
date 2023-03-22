@@ -1,6 +1,6 @@
 pub mod page_service {
     use reqwest::Response;
-    use crate::model::models::{Content, CreatePage, ContentResponse, SearchResults, CreatePageSpace, PageBody, Storage};
+    use crate::model::models::{Content, CreatePage, ContentResponse, SearchResults, CreatePageSpace, PageBody, Storage, Ancestor};
 
     pub async fn get_page(url: &str, token: String, id: String) -> Content {
         let request_url = format!("{url}/rest/api/content/{id}?expand=body.storage.value,ancestors");
@@ -77,7 +77,9 @@ pub mod page_service {
                         value: page.body.storage.value,
                     },
                 },
-                ancestors: page.a,
+                ancestors: vec![Ancestor {
+                    id: page.ancetors[0].id.parse::<i32>().unwrap(),
+                }],
             })
             .header("Content-Type", "application/json")
             .header("Authorization", format!("Basic {token}"))
@@ -87,7 +89,7 @@ pub mod page_service {
     }
 
     // todo
-    pub async fn move_page(conf_url: &str, token: &str, page: CreatePage) -> String {
+    pub async fn move_page(conf_url: &str, token: &str, page_id: String) -> String {
         return String::from("");
     }
 
@@ -95,9 +97,5 @@ pub mod page_service {
     // {url}/rest/api/content/{id}/child/attachment
     pub async fn get_page_attachments() {
         // /download/attachments/{page_id}/{file]?version=1&modificationDate=1679505520993&api=v2
-
     }
-}
-
-
 }
