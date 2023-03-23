@@ -39,8 +39,7 @@ pub mod models {
     #[allow(non_snake_case)]
     pub struct CntAncestor {
         pub id: String,
-        #[serde(rename(serialize = "type"))]
-        #[serde(rename(deserialize = "type"))]
+        #[serde(rename = "type")]
         pub Type: String,
         pub status: String,
         pub title: String,

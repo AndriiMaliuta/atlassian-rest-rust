@@ -19,6 +19,12 @@ pub mod jira_models {
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[serde(rename_all = "camelCase")]
+    pub struct EditIssue {
+        pub fields: Fields,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
     pub struct Fields {
         pub project: Project,
         pub summary: String,
@@ -61,8 +67,33 @@ pub mod jira_models {
         pub id: String,
     }
 
+    // ===================== projects
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct ProjectCore {
+        pub expand: String,
+        #[serde(rename = "self")]
+        pub self_field: String,
+        pub id: String,
+        pub key: String,
+        pub name: String,
+        pub avatar_urls: AvatarUrls,
+        pub project_type_key: String,
+        pub archived: bool,
+    }
 
-
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct AvatarUrls {
+        #[serde(rename = "48x48")]
+        pub n48x48: String,
+        #[serde(rename = "24x24")]
+        pub n24x24: String,
+        #[serde(rename = "16x16")]
+        pub n16x16: String,
+        #[serde(rename = "32x32")]
+        pub n32x32: String,
+    }
 
 
 }

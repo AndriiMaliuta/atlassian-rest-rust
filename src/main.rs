@@ -39,7 +39,7 @@ async fn main() -> Result<(), Error> {
             priority: Priority{ id: "3".to_string() },
             labels: vec![],
             description: "test".to_string(),
-            duedate: chrono::DateTime::date_naive().to_string(),
+            duedate: chrono::NaiveDate::from_yo_opt(2023, 91).unwrap().to_string(),
         },
     });
     println!("{:?}", result.await);
