@@ -12,20 +12,56 @@ pub mod jira_models {
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-    #[allow(non_snake_case)]
+    #[serde(rename_all = "camelCase")]
     pub struct CreateIssue {
-        #[serde(rename(serialize = "type"))]
-        #[serde(rename(deserialize = "type"))]
-        pub Type: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub fields: Option<Fields>,
+        pub fields: Fields,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-    #[allow(non_snake_case)]
+    #[serde(rename_all = "camelCase")]
     pub struct Fields {
-
+        pub project: Project,
+        pub summary: String,
+        pub issuetype: Issuetype,
+        pub assignee: Assignee,
+        pub reporter: Reporter,
+        pub priority: Priority,
+        pub labels: Vec<String>,
+        pub description: String,
+        pub duedate: String,
     }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Project {
+        pub id: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Issuetype {
+        pub id: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Assignee {
+        pub name: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Reporter {
+        pub name: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Priority {
+        pub id: String,
+    }
+
+
 
 
 
