@@ -1,7 +1,7 @@
 pub mod space {
     use serde::{Deserialize, Serialize};
 
-    #[derive(Deserialize, Serialize, Debug)]
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct Space {
         pub id: i64,
         pub key: String,
@@ -13,7 +13,7 @@ pub mod space {
         pub _expandable: SpaceExpandable
     }
 
-    #[derive(Deserialize, Serialize, Debug)]
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct Spaces {
         pub results: Vec<SpaceResult>,
         pub start: i8,
@@ -22,7 +22,7 @@ pub mod space {
         pub _links: SpacesLinks,
     }
 
-    #[derive(Deserialize, Serialize, Debug)]
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct SpaceResult {
         pub id: i64,
         pub key: String,
@@ -34,7 +34,7 @@ pub mod space {
         pub _expandable: SpaceExpandable
     }
 
-    #[derive(Deserialize, Serialize, Debug)]
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct SpaceLinks {
         pub webui: String,
         pub collection: String,
@@ -47,7 +47,7 @@ pub mod space {
         pub sself: String,
     }
 
-    #[derive(Deserialize, Serialize, Debug)]
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct SpaceResultLinks {
         pub webui: String,
         #[serde(rename(serialize = "self"))]
@@ -56,7 +56,7 @@ pub mod space {
         pub sself: String,
     }
 
-    #[derive(Deserialize, Serialize, Debug)]
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct SpacesLinks {
         #[serde(rename(serialize = "self"))]
         #[serde(rename(deserialize = "self"))]
@@ -80,7 +80,7 @@ pub mod space {
         pub homepage: String,
     }
 
-    #[derive(Deserialize, Serialize, Debug)]
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     pub struct CreateSpace {
         pub key: String,
         pub name: String,

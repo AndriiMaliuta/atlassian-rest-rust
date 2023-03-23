@@ -22,7 +22,7 @@ pub mod labels {
     }
 
     impl LabelService {
-        pub async fn add_label(url: &str, token: String, id: String, labels: Vec<String>) -> String {
+        pub async fn add_label(&self, url: &str, token: String, id: String, labels: Vec<String>) -> String {
             let mut labels_vec: Vec<AddLabel> = vec![];
             for label in labels {
                 labels_vec.push(AddLabel {
@@ -33,13 +33,13 @@ pub mod labels {
             let request_url = format!("{url}/rest/api/content/{id}/label/");
             let client = reqwest::Client::new();
             let resp: Response = client.post(&request_url)
-                .body(labels_vec)
+                .json(&labels_vec)
                 .header("Authorization", format!("Basic {token}"))
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .send().await.unwrap();
             let body = resp.text().await.unwrap();
-            return serde_json::from_str(body.as_str()).unwrap();
+            return body;
         }
     }
 }
