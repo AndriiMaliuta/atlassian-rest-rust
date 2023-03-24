@@ -109,9 +109,6 @@ pub mod jira_models {
         pub last_modified_user: String,
     }
 
-    use serde_derive::Deserialize;
-    use serde_derive::Serialize;
-
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[serde(rename_all = "camelCase")]
     pub struct Attachment {
@@ -175,9 +172,4 @@ pub mod jira_models {
         pub type_field: String,
         pub system: String,
     }
-
-}
-
-
-
 }

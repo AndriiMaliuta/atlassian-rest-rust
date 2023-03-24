@@ -26,7 +26,7 @@ pub mod jira {
             return body;
         }
 
-        pub async fn create_issue(&self, url: &str, token: String, issue: CreateIssue) -> String {
+        pub async fn create_issue(&self, url: &str, token: &str, issue: CreateIssue) -> String {
             let req_url = format!("{url}/rest/api/2/issue");
             let client = reqwest::Client::new();
             let resp: Response = client.post(&req_url)
@@ -66,7 +66,7 @@ pub mod jira {
     pub struct ProjectService();
 
     impl ProjectService {
-        pub async fn get_projects(&self, url: &str, token: String) -> Vec<ProjectCore> {
+        pub async fn get_projects(&self, url: &str, token: &str) -> Vec<ProjectCore> {
             let req_url = format!("{url}/rest/api/2/project");
             let client = reqwest::Client::new();
             let resp: Response = client.get(&req_url)
