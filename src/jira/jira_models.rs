@@ -142,6 +142,40 @@ pub mod jira_models {
         pub locale: String,
     }
 
+    //
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct CreateField {
+        pub id: String,
+        pub name: String,
+        pub description: String,
+        #[serde(rename = "type")]
+        pub type_field: String,
+        pub searcher_key: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct FieldCore {
+        pub id: String,
+        pub name: String,
+        pub custom: bool,
+        pub orderable: bool,
+        pub navigable: bool,
+        pub searchable: bool,
+        pub clause_names: Vec<String>,
+        pub schema: Schema,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Schema {
+        #[serde(rename = "type")]
+        pub type_field: String,
+        pub system: String,
+    }
+
 }
 
 

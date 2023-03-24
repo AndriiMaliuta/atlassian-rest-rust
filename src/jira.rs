@@ -4,6 +4,7 @@ mod attachments;
 mod props;
 mod component;
 mod fields;
+mod filter;
 
 pub mod jira {
     use reqwest::Response;
