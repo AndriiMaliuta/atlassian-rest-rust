@@ -95,6 +95,25 @@ pub mod jira_models {
         pub n32x32: String,
     }
 
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct CreateProject {
+        pub key: String,
+        pub name: String,
+        pub project_type_key: String,
+        pub project_template_key: String,
+        pub description: String,
+        pub lead: String,
+        pub url: String,
+        pub assignee_type: String,
+        pub avatar_id: i64,
+        pub issue_security_scheme: i64,
+        pub permission_scheme: i64,
+        pub notification_scheme: i64,
+        pub workflow_scheme_id: i64,
+        pub category_id: i64,
+    }
+
     // workflow
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[serde(rename_all = "camelCase")]
@@ -139,7 +158,7 @@ pub mod jira_models {
         pub locale: String,
     }
 
-    //
+    // fields
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[serde(rename_all = "camelCase")]
@@ -151,6 +170,8 @@ pub mod jira_models {
         pub type_field: String,
         pub searcher_key: String,
     }
+
+
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[serde(rename_all = "camelCase")]
