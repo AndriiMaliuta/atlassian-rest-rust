@@ -1,8 +1,13 @@
 pub(crate) mod jira_models;
+mod workflows;
+mod attachments;
+mod props;
+mod component;
+mod fields;
 
 pub mod jira {
     use reqwest::Response;
-    use crate::jira::jira_models::jira_models::{CreateIssue, EditIssue, ProjectCore};
+    use crate::jira::jira_models::jira_models::{CreateIssue, EditIssue, ProjectCore, ProjectWorkflow};
 
     pub struct JiraClient {}
 
@@ -83,7 +88,5 @@ pub mod jira {
         }
     }
 
-    // issues Workflows
-    // control of the statuses sets
-    pub struct WorkflowService();
+
 }

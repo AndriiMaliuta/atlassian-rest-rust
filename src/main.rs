@@ -1,8 +1,5 @@
-mod pages;
 mod helpers;
 mod model;
-mod spaces;
-mod labels;
 mod jira;
 mod confluence;
 
@@ -29,20 +26,31 @@ async fn main() -> Result<(), Error> {
     let conf_url = "http://localhost:9500";
 
     let is = jira::jira::IssueService();
-    let result = is.create_issue(conf_url, token, CreateIssue {
-        fields: Fields {
-            project: Project { id: "10000".to_string() },
-            summary: "test".to_string(),
-            issuetype: Issuetype{ id: "10006".to_string() },
-            assignee: Assignee{ name: "admin".to_string() },
-            reporter: Reporter{ name: "admin".to_string() },
-            priority: Priority{ id: "3".to_string() },
-            labels: vec![],
-            description: "test".to_string(),
-            duedate: chrono::NaiveDate::from_yo_opt(2023, 91).unwrap().to_string(),
-        },
-    });
-    println!("{:?}", result.await);
+
+    // let result = is.create_issue(conf_url, token, CreateIssue {
+    //     fields: Fields {
+    //         project: Project { id: "10000".to_string() },
+    //         summary: "test".to_string(),
+    //         issuetype: Issuetype{ id: "10006".to_string() },
+    //         assignee: Assignee{ name: "admin".to_string() },
+    //         reporter: Reporter{ name: "admin".to_string() },
+    //         priority: Priority{ id: "3".to_string() },
+    //         labels: vec![],
+    //         description: "test".to_string(),
+    //         duedate: chrono::NaiveDate::from_yo_opt(2023, 91).unwrap().to_string(),
+    //     },
+    // });
+    // println!("{:?}", result.await);
+
+    // ============ GET issue
+    // let resp = is.get_issue(conf_url, token, "PROC-1".to_string()).await;
+    // println!("{:?}", resp);
+
+    let ps = jira::jira::ProjectService();
+    let projects = ps.get_projects(conf_url, token).await;
+    for proj in projects {
+        println!("{:?}", proj);
+    }
 
 
     // end
@@ -51,5 +59,3 @@ async fn main() -> Result<(), Error> {
 
     Ok(())
 }
-
-

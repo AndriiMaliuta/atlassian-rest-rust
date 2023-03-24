@@ -95,5 +95,55 @@ pub mod jira_models {
         pub n32x32: String,
     }
 
+    // workflow
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct ProjectWorkflow {
+        pub name: String,
+        pub description: String,
+        pub steps: i16,
+        pub default: bool,
+        #[serde(rename = "lastModifiedDate")]
+        pub last_modified_date: String,
+        #[serde(rename = "lastModifiedUser")]
+        pub last_modified_user: String,
+    }
+
+    use serde_derive::Deserialize;
+    use serde_derive::Serialize;
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Attachment {
+        #[serde(rename = "self")]
+        pub self_field: String,
+        pub filename: String,
+        pub author: Author,
+        pub created: String,
+        pub size: i64,
+        pub mime_type: String,
+        pub content: String,
+        pub thumbnail: String,
+    }
+
+    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Author {
+        #[serde(rename = "self")]
+        pub self_field: String,
+        pub key: String,
+        pub name: String,
+        pub email_address: String,
+        pub avatar_urls: AvatarUrls,
+        pub display_name: String,
+        pub active: bool,
+        pub deleted: bool,
+        pub time_zone: String,
+        pub locale: String,
+    }
+
+}
+
+
 
 }
