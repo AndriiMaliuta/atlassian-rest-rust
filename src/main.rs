@@ -6,6 +6,7 @@ mod confluence;
 use std::fmt::format;
 use std::future::Future;
 use std::iter::Map;
+use base64::Engine;
 use reqwest::{Body, Error};
 use serde_json::{json, Value};
 use tokio::time::Instant;
@@ -18,11 +19,23 @@ async fn main() -> Result<(), Error> {
     let mut start = Instant::now();
     println!("{}", "[ *** ] Starting");
 
-    // data
-    let token = base64::encode(b"admin:admin");
-    let conf_url = "http://localhost:9500";
+    let host = std::env::var("ATLAS_URL").unwrap();
+    let token = std::env::var("ATLAS_TOKEN").unwrap();
 
-    // let result = is.create_issue(conf_url, token, CreateIssue {
+    let page =
+        confluence::pages::page_service::get_page(host.as_str(), token, "519276711".to_string()).await;
+
+    println!("{:?}", page);
+
+    // end
+    let mut end: u128 = start.elapsed().as_millis();
+    println!("{:?}", println!(">>> Action took :: {end} millis"));
+
+    Ok(())
+}
+
+async fn run_jira(token: String, conf_url: &str) {
+// let result = is.create_issue(conf_url, token, CreateIssue {
     //     fields: Fields {
     //         project: Project { id: "10000".to_string() },
     //         summary: "test".to_string(),
@@ -50,10 +63,10 @@ async fn main() -> Result<(), Error> {
             fields: Fields {
                 project: Project { id: proj.id },
                 summary: "test".to_string(),
-                issuetype: Issuetype{ id: "10006".to_string() },
-                assignee: Assignee{ name: "admin".to_string() },
-                reporter: Reporter{ name: "admin".to_string() },
-                priority: Priority{ id: "3".to_string() },
+                issuetype: Issuetype { id: "10006".to_string() },
+                assignee: Assignee { name: "admin".to_string() },
+                reporter: Reporter { name: "admin".to_string() },
+                priority: Priority { id: "3".to_string() },
                 labels: vec![],
                 description: "test".to_string(),
                 duedate: chrono::NaiveDate::from_yo_opt(2023, 91).unwrap().to_string(),
@@ -61,11 +74,4 @@ async fn main() -> Result<(), Error> {
         });
         println!("{:?}", result.await);
     }
-
-
-    // end
-    let mut end: u128 = start.elapsed().as_millis();
-    println!("{:?}", println!(">>> Action took :: {end} millis"));
-
-    Ok(())
 }

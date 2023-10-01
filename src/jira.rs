@@ -89,7 +89,7 @@ pub mod jira {
         }
 
         pub async fn create_project(&self, url: &str, token: String, data: CreateProject) -> ProjectCore { // todo - other type to return
-            let req_url = format!("{url}/rest/api/2/project/{key}");
+            let req_url = format!("{url}/rest/api/2/project/");
             let client = reqwest::Client::new();
             let resp: Response = client.post(&req_url)
                 .json(&data)

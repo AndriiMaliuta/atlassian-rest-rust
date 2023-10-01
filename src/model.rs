@@ -25,14 +25,13 @@ pub mod models {
         pub body: PageBody,
         #[serde(skip_serializing_if = "Option::is_none")]
         pub extensions: Option<Extentions<String>>,
-        #[serde(rename(deserialize = "_expandable"))]
-        pub _expandable: Expandable,
         pub version: Version,
         pub space: Space,
         #[serde(rename(deserialize = "history"))]
         pub history: Option<CntHistory>,
         pub _links: ContentLinks,
-        pub ancetors: Vec<CntAncestor>,
+        pub ancestors: Vec<CntAncestor>,
+        pub _expandable: Expandable,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -54,13 +53,24 @@ pub mod models {
     #[allow(non_snake_case)]
     pub struct Expandable {
         pub container: String,
-        pub metadata: String,
-        pub operations: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub metadata: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub operations: Option<String>,
         pub children: String,
         pub restrictions: String,
         pub ancestors: String,
         pub body: String,
-        pub descendants: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub descendants: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub version: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub childTypes: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub schedulePublishDate: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub schedulePublishInfo: Option<String>,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
